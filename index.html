@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оралхан Бөкей: Эссе Тапсырмасы</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            background-color: #f7f9fc;
+        }
+        .parallax-container {
+            height: 100vh;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            perspective: 1px; /* Parallax effect */
+        }
+        .parallax-layer {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            transform-origin: top left;
+        }
+
+        /* 1. Фондық мәтін (ең алыс) */
+        #layer-back {
+            transform: translateZ(-2px) scale(3);
+            background: linear-gradient(180deg, #e0f2f1, #a7f3d0);
+            z-index: -3;
+        }
+
+        /* 2. Аралар (орташа қашықтық) */
+        #layer-mid {
+            transform: translateZ(-1px) scale(2);
+            z-index: -2;
+        }
+
+        /* 3. Негізгі контент (ең жақын) */
+        #layer-front {
+            transform: translateZ(0);
+            z-index: 10;
+        }
+
+        /* Фондық мәтіннің қозғалысы */
+        .moving-text-container {
+            position: absolute;
+            width: 200vw; /* Wide enough for endless scroll look */
+            height: 200vh;
+            animation: moveText 60s linear infinite;
+            display: flex;
+            flex-direction: column;
+            opacity: 0.1;
+            transform: rotate(-10deg);
+        }
+
+        .moving-text-row {
+            display: flex;
+            gap: 4rem;
+            white-space: nowrap;
+            padding: 1rem 0;
+        }
+        
+        @keyframes moveText {
+            from { transform: translate(-50%, -50%) rotate(-10deg); }
+            to { transform: translate(0, 0) rotate(-10deg); }
+        }
+
+        /* Аралар анимациясы */
+        .bee {
+            position: absolute;
+            /* Өлшемі кішірейтілді */
+            font-size: 1.5rem; 
+            animation: fly linear infinite;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.5));
+        }
+
+        /* Әр араға жеке анимацияны қолдану үшін */
+        #bee1 { animation-duration: 15s; top: 10%; left: 50%; }
+        #bee2 { animation-duration: 12s; top: 40%; left: 10%; }
+        #bee3 { animation-duration: 18s; top: 70%; left: 80%; }
+        #bee4 { animation-duration: 14s; top: 20%; left: 30%; }
+        #bee5 { animation-duration: 20s; top: 85%; left: 60%; }
+
+        @keyframes fly {
+            0%, 100% {
+                transform: translate(0, 0) rotate(5deg);
+                opacity: 0.7;
+            }
+            25% {
+                transform: translate(calc(100vw - 100px), 100px) rotate(-10deg);
+                opacity: 0.9;
+            }
+            50% {
+                transform: translate(-100px, 300px) rotate(15deg);
+                opacity: 0.6;
+            }
+            75% {
+                transform: translate(calc(100vw - 200px), 500px) rotate(-5deg);
+                opacity: 1;
+            }
+        }
+
+        /* Эссе аумағына арналған арнайы стильдер */
+        #essayTextarea {
+            resize: none;
+            height: 300px;
+        }
+        
+        /* Кері байланыс модалы */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 2rem;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="parallax-container" id="parallaxContainer">
+        
+        <!-- Артқы фон: Қозғалатын мәтін (Ең алыс) -->
+        <div class="parallax-layer" id="layer-back">
+            <div class="moving-text-container">
+                <div class="moving-text-row text-6xl font-extrabold text-green-700">
+                    <!-- 20 рет қайталау -->
+                    <span>ОРАЛХАН БӨКЕЙ</span><span>Атау кере</span><span>ОРАЛХАН БӨКЕЙ</span><span>Атау кере</span><span>ОРАЛХАН БӨКЕЙ</span><span>Атау кере</span><span>ОРАЛХАН БӨКЕЙ</span><span>Атау кере</span><span>ОРАЛХАН БӨКЕЙ</span><span>Атау кере</span>
+                </div>
+                <div class="moving-text-row text-5xl font-light text-yellow-600 ml-10">
+                    <!-- 20 рет қайталау -->
+                    <span>Атау кере</span><span>ОРАЛХАН БӨКЕЙ</span><span>Атау кере</span><span>ОРАЛХАН БӨКЕЙ</span><span>Атау кере</span><span>ОРАЛХАН БӨКЕЙ</span><span>Атау кере</span><span>ОРАЛХАН БӨКЕЙ</span><span>Атау кере</span><span>ОРАЛХАН БӨКЕЙ</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ортаңғы фон: Аралар (Орташа қашықтық) -->
+        <div class="parallax-layer" id="layer-mid">
+            <span id="bee1" class="bee">🐝</span>
+            <span id="bee2" class="bee">🐝</span>
+            <span id="bee3" class="bee">🐝</span>
+            <span id="bee4" class="bee">🐝</span>
+            <span id="bee5" class="bee">🐝</span>
+        </div>
+
+        <!-- Алдыңғы фон: Негізгі контент (Ең жақын) -->
+        <div class="parallax-layer" id="layer-front">
+            <div class="max-w-4xl mx-auto p-4 md:p-8 lg:p-12 min-h-[100vh]">
+                
+                <!-- Ақ парақ картасы -->
+                <div class="bg-white p-6 md:p-10 rounded-xl shadow-2xl mt-12 mb-20 border-t-8 border-yellow-500/70">
+                    
+                    <!-- Жоғарғы деректер -->
+                    <header class="text-center mb-10 border-b pb-4">
+                        <h1 class="text-xl md:text-2xl font-semibold text-gray-700 mb-2">
+                            Алматы қаласы №202 мектеп-гимназиясының
+                        </h1>
+                        <p class="text-sm md:text-base text-gray-500 italic">Қазақ тілі мен әдебиет пәні бойынша интерактивті тапсырма парағы</p>
+                    </header>
+
+                    <!-- Оқушы мәліметтері -->
+                    <section class="mb-10 grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="flex flex-col">
+                            <label for="studentClass" class="text-sm font-medium text-gray-700 mb-1">Оқушының сыныбы:</label>
+                            <input type="text" id="studentClass" placeholder="Мысалы: 10 «А»" class="p-3 border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500 transition duration-150">
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="studentName" class="text-sm font-medium text-gray-700 mb-1">Оқушының аты-жөні:</label>
+                            <input type="text" id="studentName" placeholder="Мысалы: Ахметов Айдын" class="p-3 border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500 transition duration-150">
+                        </div>
+                    </section>
+
+                    <!-- Эссе жазу бөлімі -->
+                    <section class="mb-10">
+                        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4 text-center">Эссе жазбасы</h2>
+                        
+                        <!-- Тақырып таңдау -->
+                        <div class="p-4 bg-gray-50 rounded-lg mb-6">
+                            <p class="text-sm font-semibold text-gray-600 mb-3">Тақырыпты таңдаңыз (міндетті):</p>
+                            
+                            <div class="space-y-3">
+                                <label class="flex items-center p-3 border rounded-lg bg-white cursor-pointer hover:bg-yellow-50 transition duration-150">
+                                    <input type="radio" name="essayTopic" value="topic1" class="form-radio h-5 w-5 text-yellow-600 topic-radio" onchange="updateTopic(this.value)">
+                                    <span class="ml-3 text-sm text-gray-800">
+                                        <strong class="text-yellow-600">1)</strong> Ұлттық дәстүр мен рухани мұра – адам болмысының негізі. <br>
+                                        <span class="text-xs italic text-gray-500">(«Атау кере» шығармасындағы ұлттық салт-дәстүрдің маңызы арқылы дәлелдеу)</span>
+                                    </span>
+                                </label>
+                                
+                                <label class="flex items-center p-3 border rounded-lg bg-white cursor-pointer hover:bg-yellow-50 transition duration-150">
+                                    <input type="radio" name="essayTopic" value="topic2" class="form-radio h-5 w-5 text-yellow-600 topic-radio" onchange="updateTopic(this.value)">
+                                    <span class="ml-3 text-sm text-gray-800">
+                                        <strong class="text-yellow-600">2)</strong> Жаһандану дәуірінде ұлттық тамырды сақтау – басты міндет. <br>
+                                        <span class="text-xs italic text-gray-500">(Шығармадағы дәстүр мен қазіргі қоғам арасындағы байланыс арқылы ой қорыту)</span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Таңдалған тақырыпты көрсету -->
+                        <div class="mb-4 p-3 bg-green-50 rounded-lg border-l-4 border-green-400">
+                            <p class="text-sm font-semibold text-green-700">Таңдалған тақырып:</p>
+                            <p id="selectedTopicDisplay" class="text-base font-medium text-green-800 italic">Тақырып таңдаңыз...</p>
+                        </div>
+
+                        <!-- Бағалау критериі -->
+                        <div class="p-4 bg-red-50 rounded-lg mb-6 border border-red-200">
+                            <h3 class="text-lg font-bold text-red-700 mb-2">Бағалау критериі (Ең жоғары балл - 10):</h3>
+                            <ul class="list-disc ml-5 text-sm text-gray-700 space-y-1">
+                                <li>Тақырыптың ашылуы және негізгі ойдың анықтығы (3 балл)</li>
+                                <li>Аргументтердің дәйектілігі және шығармадан алынған дәлелдер (3 балл)</li>
+                                <li>Қазақ тілінің нормаларына сәйкестігі, сауаттылығы (2 балл)</li>
+                                <li>Құрылымның сақталуы (кіріспе, негізгі бөлім, қорытынды) (2 балл)</li>
+                            </ul>
+                            <p class="mt-2 text-xs font-semibold text-red-600">Назар аударыңыз: Эссе көлемі 250 сөзден аспауы керек.</p>
+                        </div>
+                        
+                        <!-- Эссе жазу аумағы -->
+                        <label for="essayTextarea" class="block text-sm font-medium text-gray-700 mb-1">Эссе:</label>
+                        <textarea id="essayTextarea" 
+                                  placeholder="Эссеңізді осы жерге жазыңыз..." 
+                                  class="w-full p-4 border-2 border-gray-300 rounded-xl focus:border-yellow-500 focus:ring-yellow-500 transition duration-150 text-base shadow-inner"
+                                  oninput="updateWordCount()"
+                                  oncopy="disableCopyPaste(event)"
+                                  oncut="disableCopyPaste(event)"
+                                  onpaste="disableCopyPaste(event)"
+                        ></textarea>
+                        
+                        <div class="flex justify-between items-center mt-2">
+                            <p id="wordCount" class="text-sm text-gray-600">Сөз саны: 0 / 250</p>
+                            <button id="submitBtn" onclick="submitEssay()" class="px-6 py-3 bg-yellow-500 text-white font-bold rounded-full shadow-md hover:bg-yellow-600 transition duration-300 transform hover:scale-105 disabled:opacity-50" disabled>
+                                Жұмысты тапсыру
+                            </button>
+                        </div>
+                        <p id="errorMsg" class="mt-2 text-sm text-red-500 hidden font-semibold">Тақырыпты таңдап, эссе жазуды бастаңыз.</p>
+
+                    </section>
+
+                    <!-- Төменгі деректер -->
+                    <footer class="mt-10 pt-4 border-t text-center text-xs text-gray-500">
+                        <p class="mb-1">2025 жыл</p>
+                        <p class="font-semibold text-gray-600">Қазақ тілі мен әдебиет пәні мұғалімі</p>
+                        <p class="font-bold text-base text-gray-700">Шаймағанбетова Алтынгүл Кенжеғарақызы</p>
+                    </footer>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Кері байланыс модалы -->
+    <div id="feedbackModal" class="modal">
+        <div class="modal-content">
+            <div id="loadingIndicator" class="text-center p-4">
+                <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-yellow-500 mx-auto mb-4"></div>
+                <p class="text-lg font-semibold text-gray-700">Жұмыс тексерілуде. Күте тұрыңыз...</p>
+                <p class="text-sm text-gray-500 mt-1">(Нақты жүйеде кері байланыс 2 минуттан кейін келеді, бұл демонстрацияда 5 секунд)</p>
+            </div>
+            
+            <div id="feedbackContent" class="hidden">
+                <h3 class="text-2xl font-bold text-green-600 mb-4 border-b pb-2">Кері байланыс</h3>
+                
+                <div class="mb-4 p-4 bg-green-100 rounded-lg">
+                    <p class="text-xl font-bold text-green-700">Баға: <span id="finalScore" class="text-3xl"></span> / 10</p>
+                </div>
+                
+                <h4 class="text-lg font-semibold text-gray-700 mb-2">Мұғалімнің толық ұсыныстары:</h4>
+                <div id="fullFeedbackText" class="p-3 bg-gray-50 rounded-lg text-gray-800 text-sm whitespace-pre-line border border-gray-200"></div>
+
+                <h4 class="text-lg font-semibold text-gray-700 mt-4 mb-2">Негізгі қателер:</h4>
+                <ul id="errorList" class="list-disc ml-5 text-red-600 text-sm"></ul>
+
+                <button onclick="document.getElementById('feedbackModal').style.display = 'none'" 
+                        class="mt-6 w-full py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition duration-300">
+                    Жабу
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Глобалды айнымалылар
+        const topic1Text = 'Ұлттық дәстүр мен рухани мұра – адам болмысының негізі. («Атау кере» шығармасындағы ұлттық салт-дәстүрдің маңызы арқылы дәлелдеу)';
+        const topic2Text = 'Жаһандану дәуірінде ұлттық тамырды сақтау – басты міндет. (Шығармадағы дәстүр мен қазіргі қоғам арасындағы байланыс арқылы ой қорыту)';
+        let selectedTopic = null;
+        const WORD_LIMIT = 250;
+        const FEEDBACK_DELAY_MS = 5000; // Демонстрация үшін 5 секунд. Нақты 2 минут: 120000 мс
+
+        // --- 1. Parallax Логикасы ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('parallaxContainer');
+            const layerBack = document.getElementById('layer-back');
+            const layerMid = document.getElementById('layer-mid');
+
+            // Parallax эффектісін басқару
+            container.addEventListener('scroll', () => {
+                const scrollY = container.scrollTop;
+                // Артқы қабат баяу қозғалады
+                layerBack.style.transform = `translateZ(-2px) scale(3) translateY(${scrollY * 0.1}px)`;
+                // Ортаңғы қабат орташа жылдамдықпен қозғалады (аралар)
+                layerMid.style.transform = `translateZ(-1px) scale(2) translateY(${scrollY * 0.3}px)`;
+            });
+        });
+
+        // --- 2. Эссе Логикасы ---
+
+        // Тақырыпты жаңарту
+        function updateTopic(topicValue) {
+            const display = document.getElementById('selectedTopicDisplay');
+            const submitBtn = document.getElementById('submitBtn');
+            const errorMsg = document.getElementById('errorMsg');
+
+            if (topicValue === 'topic1') {
+                selectedTopic = topic1Text;
+            } else if (topicValue === 'topic2') {
+                selectedTopic = topic2Text;
+            } else {
+                selectedTopic = null;
+            }
+
+            display.textContent = selectedTopic || 'Тақырып таңдаңыз...';
+
+            // Тақырып таңдалса, тапсыру батырмасын іске қосу
+            updateSubmitButtonState();
+        }
+
+        // Сөз санын жаңарту және лимитті тексеру
+        function updateWordCount() {
+            const textarea = document.getElementById('essayTextarea');
+            const wordCountDisplay = document.getElementById('wordCount');
+            const text = textarea.value.trim();
+            
+            // Сөздерді есептеу
+            const words = text ? text.split(/\s+/) : [];
+            const count = words.length;
+
+            wordCountDisplay.textContent = `Сөз саны: ${count} / ${WORD_LIMIT}`;
+
+            if (count > WORD_LIMIT) {
+                // Лимиттен асып кетсе, соңғы сөздерді кесіп тастау
+                const limitedText = words.slice(0, WORD_LIMIT).join(' ');
+                textarea.value = limitedText;
+                wordCountDisplay.classList.remove('text-gray-600');
+                wordCountDisplay.classList.add('text-red-500');
+            } else {
+                wordCountDisplay.classList.remove('text-red-500');
+                wordCountDisplay.classList.add('text-gray-600');
+            }
+            
+            updateSubmitButtonState(count);
+        }
+
+        // Тапсыру батырмасының күйін жаңарту
+        function updateSubmitButtonState(currentWordCount) {
+            const submitBtn = document.getElementById('submitBtn');
+            const textarea = document.getElementById('essayTextarea');
+            const count = currentWordCount !== undefined ? currentWordCount : (textarea.value.trim() ? textarea.value.trim().split(/\s+/).length : 0);
+            const isTopicSelected = selectedTopic !== null;
+            const isTextWritten = count > 0;
+
+            if (isTopicSelected && isTextWritten) {
+                submitBtn.disabled = false;
+                document.getElementById('errorMsg').classList.add('hidden');
+            } else {
+                submitBtn.disabled = true;
+                if (!isTopicSelected) {
+                    document.getElementById('errorMsg').classList.remove('hidden');
+                }
+            }
+        }
+
+        // Көшіру-қоюды өшіру (Copy-Paste Restriction)
+        function disableCopyPaste(event) {
+            const messageBox = document.createElement('div');
+            messageBox.textContent = "Көшіру-қою функциясы бұл тапсырмада өшірілген.";
+            messageBox.className = "fixed top-10 right-10 bg-red-500 text-white px-4 py-3 rounded-lg shadow-xl transition-opacity duration-300 opacity-0 z-50";
+            document.body.appendChild(messageBox);
+            
+            setTimeout(() => {
+                messageBox.classList.remove('opacity-0');
+                messageBox.classList.add('opacity-100');
+            }, 10);
+
+            setTimeout(() => {
+                messageBox.classList.remove('opacity-100');
+                messageBox.classList.add('opacity-0');
+                setTimeout(() => messageBox.remove(), 300);
+            }, 3000);
+
+            event.preventDefault();
+        }
+
+        // Кері байланыс модалын көрсетуге арналған көмекші функция
+        function showFeedbackModal(score, suggestions, errors) {
+            const loading = document.getElementById('loadingIndicator');
+            const content = document.getElementById('feedbackContent');
+            
+            loading.classList.add('hidden');
+            content.classList.remove('hidden');
+
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('fullFeedbackText').textContent = suggestions.trim();
+            
+            const errorList = document.getElementById('errorList');
+            errorList.innerHTML = '';
+            if (errors.length === 0) {
+                errorList.innerHTML = '<li class="text-green-600">Ешқандай негізгі қателер табылған жоқ. Жарайсың!</li>';
+            } else {
+                errors.forEach(err => {
+                    const li = document.createElement('li');
+                    li.textContent = err;
+                    errorList.appendChild(li);
+                });
+            }
+        }
+
+        // --- 3. Кері байланыс логикасы ---
+
+        function submitEssay() {
+            const essayText = document.getElementById('essayTextarea').value;
+            const wordCount = essayText.trim().split(/\s+/).filter(word => word.length > 0).length;
+
+            if (!selectedTopic) {
+                // Біздің ереже бойынша alert орнына custom modal қолдану керек, бірақ бұл жерде
+                // бұрынғы кодтағыдай ақпараттық хабарлама ретінде қалдырамыз.
+                const errorMsg = document.getElementById('errorMsg');
+                if (errorMsg.classList.contains('hidden')) {
+                    errorMsg.textContent = "Тапсырманы жіберу үшін тақырыпты таңдаңыз.";
+                    errorMsg.classList.remove('hidden');
+                }
+                return;
+            }
+
+            if (wordCount === 0) {
+                const errorMsg = document.getElementById('errorMsg');
+                if (errorMsg.classList.contains('hidden')) {
+                    errorMsg.textContent = "Эссе мәтінін жазыңыз.";
+                    errorMsg.classList.remove('hidden');
+                }
+                return;
+            }
+
+            // Модалды көрсету және жүктеуді бастау
+            const modal = document.getElementById('feedbackModal');
+            const loading = document.getElementById('loadingIndicator');
+            const content = document.getElementById('feedbackContent');
+            
+            modal.style.display = 'block';
+            loading.classList.remove('hidden');
+            content.classList.add('hidden');
+            
+            // Тапсыру батырмасын өшіру
+            document.getElementById('submitBtn').disabled = true;
+
+            // 2 минуттық (демо үшін 5 секундтық) кідіріс
+            setTimeout(() => {
+                generateMockFeedback(essayText);
+            }, FEEDBACK_DELAY_MS);
+        }
+
+        function generateMockFeedback(essayText) {
+            const MIN_WORDS_FOR_FULL_SCORE = 50; 
+            const VERY_LOW_WORDS = 10;
+            const wordCount = essayText.trim().split(/\s+/).filter(word => word.length > 0).length;
+
+            // ** 1. Өте қысқа жұмысқа баллды шектеу логикасы (1 баллдан аспайды) **
+            if (wordCount <= VERY_LOW_WORDS) {
+                // 0.5 пен 1.0 аралығында кездейсоқ балл
+                const finalScore = (Math.random() * 0.5 + 0.5).toFixed(1); 
+                const errors = [`Жұмыс көлемі тым аз (${wordCount} сөз). Эссе толық бағалау критерийлеріне сай емес. Ең жоғары балл - 1.0.`, "Тақырып мүлдем ашылмаған."];
+                const suggestions = `Эссеңіздің көлемі тым қысқа. Толық бағалау үшін мәтін көлемін ең кемі ${MIN_WORDS_FOR_FULL_SCORE} сөзге дейін ұлғайтыңыз.`;
+                
+                showFeedbackModal(finalScore, suggestions, errors);
+                return; // Басқа бағалау логикасын аттап өту
+            }
+            
+            // Егер сөз саны жеткілікті болса, толық бағалауды жүргізу:
+
+            let score = 0;
+            let errors = [];
+            let suggestions = "";
+
+            // 1. Тақырыптың ашылуы (3 балл)
+            if (wordCount >= 200) { 
+                score += 3.0;
+                suggestions += "Тақырыптың негізгі идеясы өте анық көрсетілген, жан-жақты талданған.\n\n";
+            } else if (wordCount >= 100) { 
+                score += 2.5;
+                suggestions += "Тақырыптың негізгі идеясы анық көрсетілген, бірақ кейбір тұстарды тереңірек талдауға болады.\n\n";
+            } else {
+                score += 1.5;
+                errors.push("Тақырып толық ашылмаған. Негізгі ойды күшейту қажет.");
+                suggestions += "Тақырыпты толық ашу үшін көбірек аргументтер мен мысалдар келтіріңіз.\n\n";
+            }
+
+            // 2. Аргументтердің дәйектілігі (3 балл)
+            if (essayText.includes('Атау кере') || essayText.includes('дәстүр') && wordCount > 150) { 
+                score += 2.8;
+                suggestions += "«Атау кере» шығармасынан дәйекті аргументтер қолданылған, бұл өте жақсы.\n\n";
+            } else if (essayText.includes('Оралхан') && wordCount > 100) {
+                score += 2.0;
+                suggestions += "Жалпы аргументтер бар, бірақ шығармадан нақты дәйектерді көбірек келтіріңіз.\n\n";
+            } else {
+                score += 1.0;
+                errors.push("«Атау кере» шығармасынан алынған нақты дәйектер немесе үзінділер жеткіліксіз.");
+                suggestions += "Дәлелдеу үшін шығармадан нақты мысалдарды келтіруге тырысыңыз.\n\n";
+            }
+            
+            // 3. Сауаттылық (2 балл)
+            const commonErrors = ["салт дастур", "әдемілік", "рухани мура"]; 
+            const detectedErrors = commonErrors.filter(err => essayText.toLowerCase().includes(err));
+
+            if (detectedErrors.length === 0) {
+                score += 2.0;
+                suggestions += "Сауаттылығы өте жақсы, орфографиялық және пунктуациялық қателер жоқ.\n\n";
+            } else if (detectedErrors.length <= 1) {
+                score += 1.5;
+                errors.push("Бір-екі орфографиялық немесе пунктуациялық қателер кездеседі.");
+                suggestions += "Мәтінді мұқият тексеріңіз. Әсіресе біріккен сөздердің дұрыс жазылуына назар аударыңыз.\n\n";
+            } else {
+                score += 0.5;
+                errors.push("Тілдік нормалар сақталмаған, бірнеше грамматикалық қателер бар.");
+                suggestions += "Сөйлем құрылымын жақсартып, тыныс белгілерін дұрыс қолдануды үйреніңіз.\n\n";
+            }
+
+            // 4. Құрылым (2 балл)
+            if (wordCount >= 200) { 
+                score += 2.0;
+                suggestions += "Эссе құрылымы (кіріспе, негізгі, қорытынды) толық сақталған.";
+            } else if (wordCount >= 100) {
+                 score += 1.5;
+                suggestions += "Эссе құрылымы жалпы сақталған, бірақ қорытынды бөлімін күшейту қажет.";
+            } else {
+                score += 1.0;
+                errors.push("Эссе құрылымы толық емес. Қорытынды бөлімді күшейту қажет.");
+                suggestions += "Кіріспеде тақырыпты таныстырып, негізгі бөлімде дәлелдеп, қорытындыда ойыңызды түйіндеңіз.";
+            }
+
+            // Соңғы баллды 10 баллдан асырмау
+            let finalScore = Math.min(10, score).toFixed(1);
+
+            // Сөз лимитінен асып кетсе, баллды азайту
+            if (wordCount > WORD_LIMIT) {
+                finalScore = (parseFloat(finalScore) - 1).toFixed(1);
+                errors.push(`Сөз лимитінен асып кеткен: ${wordCount} / ${WORD_LIMIT} сөз. Бұл 1 баллға азайтты.`);
+                if (finalScore < 0) finalScore = 0; // Балл теріс болмауы керек
+            }
+            
+            showFeedbackModal(finalScore, suggestions, errors);
+        }
+
+        // Жүктеу кезінде батырманың күйін орнату
+        document.addEventListener('DOMContentLoaded', () => {
+            updateSubmitButtonState(0);
+        });
+
+    </script>
+</body>
+</html>
